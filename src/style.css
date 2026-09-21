@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  /* themes: all; */
+  themes:
+    light --default,
+    dark --prefersdark;
+}
+
+:root {
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+  --depth: 1;
+  --noise: 0;
+}
+
+* {
+  @apply font-sans scroll-smooth transition-all;
+}
