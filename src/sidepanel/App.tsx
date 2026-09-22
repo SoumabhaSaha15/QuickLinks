@@ -56,8 +56,7 @@ export default function App() {
                 site={url}
                 key={index}
                 remove={() => {
-                  setQuickLinks(sites.filter(it => it !== item))
-                    .then();
+                  setQuickLinks(sites.filter(it => it !== item));
                 }}
               />)
           })}
@@ -70,10 +69,14 @@ export default function App() {
             <div className="card-body p-4 sm:p-8">
 
               <form className="fieldset space-y-4">
-
                 <div>
                   <label className="label" htmlFor="LinksImport">
-                    {error && (<span className="text-error text-sm ml-2">{error}</span>)}
+                    {error && (
+                      <>
+                        <span className="inline-block text-error text-sm ml-2 truncate max-w-64">{error}</span>
+                        <br /> <br />
+                      </>
+                    )}
                   </label>
                   <textarea
                     className="validator max-h-64 resize-y textarea textarea-bordered w-full min-h-30 focus:outline-none focus:ring-0 focus:ring-accent rounded-box"
@@ -92,14 +95,16 @@ export default function App() {
                     try {
                       const paesedImport = JSON.parse(text);
                       importQuickLinks(paesedImport as string[])
+                        .then(() => {
+                          setError(null);
+                          setText("");
+                          setMode(prev => !prev);
+                        })
                         .catch((err: Error) => {
                           if (err instanceof z.ZodError)
                             return setError(z.prettifyError(err));
                           setError(err.message);
                         });
-                      setError(null);
-                      setText("");
-                      setMode(prev => !prev);
                     } catch (err) {
                       if (err instanceof z.ZodError)
                         return setError(z.prettifyError(err));
@@ -131,11 +136,11 @@ export default function App() {
       <div className="fab">
 
         <RippleButton tabIndex={0} className="btn btn-lg rounded-box btn-square btn-info">
-          <MdMenu size={24} />
+          <MdMenu size={24} className="font-black" />
         </RippleButton>
         <div className="fab-close">
           <span className="btn rounded-box btn-square btn-lg btn-error">
-            <IoMdClose size={24} />
+            <IoMdClose size={24} className="font-black" />
           </span>
         </div>
         <div>
@@ -154,8 +159,8 @@ export default function App() {
                 link.click();
                 document.body.removeChild(link);
               }}
-              children={<CiExport size={24} />}
-              className={cn("btn btn-lg rounded-box btn-square", (!sites.length) && "btn-disabled")}
+              children={<CiExport size={24} className="font-black" />}
+              className={cn("btn btn-lg rounded-box btn-square btn-primary hover:btn-accent", (!sites.length) && "btn-disabled")}
             />
           </div>
 
@@ -167,10 +172,10 @@ export default function App() {
             data-tip="import"
           >
             <RippleButton
-              className={cn("btn btn-lg rounded-box btn-square", (!mode) && "btn-disabled")}
+              className={cn("btn btn-lg rounded-box btn-square btn-secondary hover:btn-accent", (!mode) && "btn-disabled")}
               onClick={() => setMode(prev => !prev)}
               disabled={!mode}
-              children={<CiImport size={24} />}
+              children={<CiImport size={24} className="font-black" />}
             />
           </div>
         </div>

@@ -9,7 +9,7 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: PIN_THIS_SITE,
     title: "Pin this site",
-    contexts: ["selection", "page", "link"] // Choose where it appears
+    contexts: ["page"] // Choose where it appears
   });
 });
 

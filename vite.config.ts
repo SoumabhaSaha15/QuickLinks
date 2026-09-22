@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 import zip from 'vite-plugin-zip-pack';
 import { crx } from '@crxjs/vite-plugin';
 import react from '@vitejs/plugin-react';
-import manifest from './manifest.config.ts';
+import manifest from './manifest.config';
 import tailwindcss from '@tailwindcss/vite';
 import pkg from './package.json' with { type: 'json' };
 
