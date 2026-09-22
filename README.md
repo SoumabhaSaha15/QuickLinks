@@ -7,38 +7,47 @@
 
 > Built using **CRXJS**.
 
-> **Vite** as build tool.
+> **Vite** as the build tool.
 
-> Styled using **tailwindcss-v4** and **daisy-ui-v5**
+> Styled using **tailwindcss-v4** and **daisy-ui-v5**.
 
 > **React 19+** UI library.
 
-> Leverages chrome **side-pannel** API.
+> Leverages the chrome **side-panel** API.
 
 > Pin any site using the **context menu**.
 
-> Import export pined sites acrosss any **chromium browser**.
+> Import / export pinned sites across any **chromium browser**.
 
-> Changes **theme** (light/dark) according to the **system settings**
+> Changes **theme** (light/dark) according to the **system settings**.
 
 ---
+
+## Usage
+
+- Click the QuickLinks toolbar icon to open the side panel.
+- Right-click anywhere on a page and choose **"Pin this site"** to save it.
+- Click a pinned site in the side panel to open it in a new tab.
+- Use the **export** button to download your pinned sites as JSON, and the **import** button to restore them (on any chromium browser).
 
 ## Installation guide
 
 ```txt
-  Install zip.
-  ->
-  Unzip and install packages using pnpm [preffered].
-  -> 
-  Open terminal and run pnpm build.
-  -> 
-  Open browser and click on `manage extension`.
-  -> 
-  Turn on developer mode.
-  -> 
-  Click load unpacked.
-  -> 
-  Choose dist folder inside the root od the project.
-  -> 
-  Pin the installed extension.
+Clone the repo (or download and unzip it).
+->
+Install packages using pnpm [preferred].
+  pnpm install
+->
+Open a terminal and run:
+  pnpm build
+->
+Open the browser and click on `manage extensions`.
+->
+Turn on developer mode.
+->
+Click load unpacked.
+->
+Choose the dist folder inside the root of the project.
+->
+Pin the installed extension.
 ```
