@@ -12,7 +12,7 @@ const ListItem: React.FC<ListItemProps> = ({ site, remove }: ListItemProps) => {
     <li className="list-row hover:bg-base-300 transition-all rounded-none">
       <div>
         <img
-          className="size-10 rounded-box bg-base-content"
+          className="size-10 rounded-box"
           alt={site.hostname}
           src={getFavIcon(site.origin)}
         />

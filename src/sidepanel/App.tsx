@@ -27,10 +27,10 @@ export default function App() {
     <>
       <div className="navbar bg-base-200 shadow-sm">
         <RippleButton
-          className="btn btn-ghost text-xl"
+          className="btn btn-ghost rounded-box text-xl bg-linear-90 from-primary via-secondary to-accent bg-clip-text text-transparent"
           onClick={() => { chrome.tabs.create({ url: "https://github.com/SoumabhaSaha15/QuickLinks" }); }}
-        >QuickLinks
-        </RippleButton>
+          children={"QuickLinks"}
+        />
       </div>
       <Activity mode={getMode(mode)}>
         <ListContainer>
@@ -70,16 +70,6 @@ export default function App() {
             <div className="card-body p-4 sm:p-8">
 
               <form className="fieldset space-y-4">
-
-                <RippleButton
-                  type="button"
-                  onClick={() => setMode(prev => !prev)}
-                  disabled={mode}
-                  className="btn btn-accent text-accent-content w-full rounded-box hover:btn-secondary"
-                >
-                  <IoMdArrowRoundBack size={24} />
-                  back
-                </RippleButton>
 
                 <div>
                   <label className="label" htmlFor="LinksImport">
@@ -121,6 +111,16 @@ export default function App() {
                   import links <CiImport size={24} />
                 </RippleButton>
 
+                <RippleButton
+                  type="button"
+                  onClick={() => setMode(prev => !prev)}
+                  disabled={mode}
+                  className="btn btn-accent text-accent-content w-full rounded-box hover:btn-secondary"
+                >
+                  <IoMdArrowRoundBack size={24} />
+                  back
+                </RippleButton>
+
               </form>
             </div>
           </div>
@@ -129,42 +129,51 @@ export default function App() {
 
 
       <div className="fab">
+
         <RippleButton tabIndex={0} className="btn btn-lg rounded-box btn-square btn-info">
           <MdMenu size={24} />
         </RippleButton>
         <div className="fab-close">
-          Close
           <span className="btn rounded-box btn-square btn-lg btn-error">
             <IoMdClose size={24} />
           </span>
         </div>
         <div>
-          export
-          <RippleButton
-            onClick={() => {
-              const jsonStr = JSON.stringify(sites, null, 2);
-              const blob = new Blob([jsonStr], { type: "application/json" });
-              const link = document.createElement("a");
-              link.href = URL.createObjectURL(blob);
-              link.download = "quick_links.json";
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-            }}
-            className={cn("btn btn-lg rounded-box btn-square", (!sites.length) && "btn-disabled")}
+          <div
+            className="tooltip tooltip-left rounded-full"
+            data-tip="export"
           >
-            <CiExport size={24} />
-          </RippleButton>
+            <RippleButton
+              onClick={() => {
+                const jsonStr = JSON.stringify(sites, null, 2);
+                const blob = new Blob([jsonStr], { type: "application/json" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "quick_links.json";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
+              children={<CiExport size={24} />}
+              className={cn("btn btn-lg rounded-box btn-square", (!sites.length) && "btn-disabled")}
+            />
+          </div>
+
+
         </div>
         <div>
-          import
-          <RippleButton
-            className={cn("btn btn-lg rounded-box btn-square", (!mode) && "btn-disabled")}
-            onClick={() => setMode(prev => !prev)}
-            disabled={!mode}
+          <div
+            className="tooltip tooltip-left rounded-full"
+            data-tip="import"
           >
-            <CiImport size={24} />
-          </RippleButton></div>
+            <RippleButton
+              className={cn("btn btn-lg rounded-box btn-square", (!mode) && "btn-disabled")}
+              onClick={() => setMode(prev => !prev)}
+              disabled={!mode}
+              children={<CiImport size={24} />}
+            />
+          </div>
+        </div>
       </div>
     </>
   );
