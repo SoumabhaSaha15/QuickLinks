@@ -1,4 +1,4 @@
-import { pinSite } from "@/utils/quick-link";
+import { pinQuickLink } from "@/utils/quick-link";
 
 chrome.action.onClicked.addListener(async (tab) => {
   await chrome.sidePanel.open({ tabId: tab.id, windowId: tab.windowId });
@@ -17,10 +17,8 @@ chrome.contextMenus.onClicked.addListener((info) => {
   switch (info.menuItemId) {
     case PIN_THIS_SITE: {
       const url = URL.parse(info.pageUrl!);
-      url && pinSite(url.origin)
-        .catch((error) => {
-          console.error(error)
-        });
+      if (url)
+        pinQuickLink(url.origin).catch(console.error);
       break;
     }
   }

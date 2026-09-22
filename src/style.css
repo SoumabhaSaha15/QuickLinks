@@ -7,9 +7,9 @@
 }
 
 :root {
-  --radius-selector: 0.5rem;
-  --radius-field: 0.5rem;
-  --radius-box: 0.5rem;
+  --radius-selector: 0.75rem;
+  --radius-field: 0.75rem;
+  --radius-box: 0.75rem;
   --depth: 1;
   --noise: 0;
 }

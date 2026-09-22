@@ -13,7 +13,14 @@ export const setQuickLinks: (urls: Sites) => Promise<void> = async (urls) => {
   await chrome.storage.local.set({ quickLinks: sites });
 }
 
-export const pinSite: (url: Site) => Promise<void> = async (url) => {
+export const importQuickLinks: (urls: Sites) => Promise<void> = async (urls) => {
+  const result = await chrome.storage.local.get({ quickLinks: [] })
+  const sites = sitesValidator.parse(urls, { reportInput: true });
+  const impots = [...new Set(sites.concat(result?.quickLinks as string[]))];
+  await chrome.storage.local.set({ quickLinks: impots });
+}
+
+export const pinQuickLink: (url: Site) => Promise<void> = async (url) => {
   const site = siteParser.parse(url, { reportInput: true });
   const result = (await chrome.storage.local.get({ quickLinks: [] }));
   (result.quickLinks as Sites).push(site);
