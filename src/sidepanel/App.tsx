@@ -17,7 +17,6 @@ export default function App() {
   const [text, setText] = useState<string>("");
   const [mode, setMode] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
   useEffect(() => {
     getQuickLinks().then(setSites);
     return listenQuickLinksChanges(setSites);
@@ -26,7 +25,7 @@ export default function App() {
   return (
     <>
       <div className="navbar bg-base-200 shadow-sm">
-        <RippleButton
+        <button
           className="btn btn-ghost rounded-box text-xl bg-linear-90 from-primary via-secondary to-accent bg-clip-text text-transparent"
           onClick={() => { chrome.tabs.create({ url: "https://github.com/SoumabhaSaha15/QuickLinks" }); }}
           children={"QuickLinks"}
@@ -49,16 +48,14 @@ export default function App() {
               </div>
             </li>
           )}
-          {sites.map((item, index) => {
+          {sites.map(item => {
             const url = new URL(item);
             return (
               <ListItem
                 site={url}
-                key={index}
-                remove={() => {
-                  setQuickLinks(sites.filter(it => it !== item));
-                }}
-              />)
+                key={item}
+                remove={() => setQuickLinks(sites.filter(rest => rest !== item))}
+              />);
           })}
         </ListContainer>
       </Activity>
@@ -131,33 +128,34 @@ export default function App() {
           </div>
         </div>
       </Activity>
-
-
       <div className="fab">
-
         <RippleButton tabIndex={0} className="btn btn-lg rounded-box btn-square btn-info">
-          <MdMenu size={24} className="font-black" />
+          <MdMenu size={24} />
         </RippleButton>
         <div className="fab-close">
           <span className="btn rounded-box btn-square btn-lg btn-error">
-            <IoMdClose size={24} className="font-black" />
+            <IoMdClose size={24}  />
           </span>
         </div>
         <div>
           <div
-            className="tooltip tooltip-left rounded-full"
+            className="tooltip tooltip-left rounded-full tooltip-primary"
             data-tip="export"
           >
             <RippleButton
               onClick={() => {
-                const jsonStr = JSON.stringify(sites, null, 2);
-                const blob = new Blob([jsonStr], { type: "application/json" });
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                link.download = "quick_links.json";
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                if (window.showSaveFilePicker) {
+                  window.showSaveFilePicker({
+                    suggestedName: "quick_links.json",
+                    types: [{ description: "JSON", accept: { "application/json": [".json"] } }],
+                  }).then((handle) => {
+                    handle.createWritable()
+                      .then((writable) => {
+                        writable.write(JSON.stringify(sites, null, 2));
+                        writable.close();
+                      });
+                  });
+                }
               }}
               children={<CiExport size={24} className="font-black" />}
               className={cn("btn btn-lg rounded-box btn-square btn-primary hover:btn-accent", (!sites.length) && "btn-disabled")}
@@ -168,14 +166,14 @@ export default function App() {
         </div>
         <div>
           <div
-            className="tooltip tooltip-left rounded-full"
+            className="tooltip tooltip-left rounded-full tooltip-secondary"
             data-tip="import"
           >
             <RippleButton
               className={cn("btn btn-lg rounded-box btn-square btn-secondary hover:btn-accent", (!mode) && "btn-disabled")}
               onClick={() => setMode(prev => !prev)}
               disabled={!mode}
-              children={<CiImport size={24} className="font-black" />}
+              children={<CiImport size={24} />}
             />
           </div>
         </div>

@@ -23,9 +23,7 @@ const ListItem: React.FC<ListItemProps> = ({ site, remove }: ListItemProps) => {
           className="link link-primary"
           href={site.href}
           children={site.hostname}
-          onClick={() => {
-            chrome.tabs.create({ url: site.href })
-          }}
+          target="_blank"
         />
       </div>
       <RippleButton className="btn btn-square btn-ghost bg-error" onClick={() => { remove(); }}>
