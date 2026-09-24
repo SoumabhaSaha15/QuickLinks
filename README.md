@@ -31,15 +31,9 @@
 - Use the **export** button to download your pinned sites as JSON, and the **import** button to restore them (on any chromium browser).
 
 ## Installation guide
-
+- [Get latest release](./release/quick_links-1.0.0.zip)
 ```txt
-Clone the repo (or download and unzip it).
-->
-Install packages using pnpm [preferred].
-  pnpm install
-->
-Open a terminal and run:
-  pnpm build
+Install the latest release and unzip it.
 ->
 Open the browser and click on `manage extensions`.
 ->

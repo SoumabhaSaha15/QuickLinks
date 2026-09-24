@@ -17,13 +17,15 @@ export default defineConfig({
     tailwindcss(),
     react(),
     crx({ manifest }),
-    zip({ outDir: 'release', outFileName: `crx-${pkg.name}-${pkg.version}.zip` }),
+    zip({ outDir: 'release', outFileName: `${pkg.name}-${pkg.version}.zip` }),
   ],
+
   server: {
-    cors: {
-      origin: [
-        /chrome-extension:\/\//,
-      ],
+    port: 5173,
+    strictPort: true,
+    hmr: {
+      port: 5173,
+      host: 'localhost',
     },
   },
 })

@@ -15,6 +15,7 @@ const ListItem: React.FC<ListItemProps> = ({ site, remove }: ListItemProps) => {
           className="size-10 rounded-box"
           alt={site.hostname}
           src={getFavIcon(site.origin)}
+          onError={({ currentTarget }) => currentTarget.src = "/broken.png"}
         />
       </div>
       <div>
